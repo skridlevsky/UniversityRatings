@@ -3,8 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { auth } from './firebase'
+import './assets/SCSS/app.scss'
 
 Vue.config.productionTip = false
+
+
 
 let app
 auth.onAuthStateChanged(() => {
