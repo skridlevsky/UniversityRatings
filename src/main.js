@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { auth } from './firebase'
-import './assets/SCSS/app.scss'
+import './assets/css/app.css'
 
 const app = createApp(App)
 
