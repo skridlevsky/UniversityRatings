@@ -1,21 +1,12 @@
-import Vue from 'vue'
+import { createApp, h } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import { auth } from './firebase'
 import './assets/SCSS/app.scss'
 
-Vue.config.productionTip = false
+const app = createApp(App)
 
+app.use(router, store)
 
-
-let app
-auth.onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount('#app')
-  }
-})
+app.mount('#app')

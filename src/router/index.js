@@ -1,10 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '../firebase'
 
-Vue.use(VueRouter)
+const routerHistory = createWebHistory()
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Sākums',
@@ -35,11 +34,7 @@ Vue.use(VueRouter)
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
+const router = createRouter({ history: routerHistory, routes })
 
 // navigation guard to check for logged in users
 router.beforeEach((to, from, next) => {

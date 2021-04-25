@@ -1,11 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import * as firebase from '../firebase'
 import router from '../router/index'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+const store = createStore({
   state: {
     userProfile: {}
   },
@@ -47,3 +44,5 @@ export default new Vuex.Store({
     }
   }
 })
+
+export default store
