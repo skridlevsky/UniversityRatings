@@ -15,11 +15,11 @@
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
             <label for="email-address" class="sr-only">E-pasts</label>
-            <input id="email-address" name="email" type="email" autocomplete="email" required="" v-model="form.name" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="E-pasta adrese" />
+            <input id="email-address" name="email" type="email" autocomplete="email" value required autofocus v-model="form.email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="E-pasta adrese" />
           </div>
           <div>
             <label for="password" class="sr-only">Parole</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required="" v-model="form.name" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Parole" />
+            <input id="password" name="password" type="password" autocomplete="current-password" required v-model="form.password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Parole" />
           </div>
         </div>
 
