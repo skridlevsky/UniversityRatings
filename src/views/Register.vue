@@ -4,7 +4,7 @@
     <div class="max-w-md w-full space-y-8">
       <div>
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Autorizācija
+          Reģistrācija
         </h2>
       </div>
 
@@ -14,27 +14,16 @@
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
+            <label for="name" class="sr-only">Vārds</label>
+            <input id="name" name="name" type="text" autocomplete="name" value required autofocus v-model="form.name" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Jānis" />
+          </div>
+          <div>
             <label for="email-address" class="sr-only">E-pasts</label>
-            <input id="email-address" name="email" type="email" autocomplete="email" required="" v-model="form.name" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="E-pasta adrese" />
+            <input id="email-address" name="email" type="email" autocomplete="email" required v-model="form.email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="E-pasta adrese" />
           </div>
           <div>
             <label for="password" class="sr-only">Parole</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required="" v-model="form.name" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Parole" />
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-              Atcerēties mani
-            </label>
-          </div>
-
-          <div class="text-sm">
-            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-              Aizmirsi paroli?
-            </a>
+            <input id="password" name="password" type="password" autocomplete="current-password" required v-model="form.password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Parole" />
           </div>
         </div>
 
@@ -43,7 +32,7 @@
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
             </span>
-            Ienākt
+            Reģistrēties
           </button>
         </div>
       </form>
@@ -64,9 +53,10 @@ export default {
     Navigation,
     Footer
   },
-  data() {
+    data() {
     return {
       form: {
+        name: "",
         email: "",
         password: ""
       },
@@ -77,14 +67,18 @@ export default {
     submit() {
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.form.email, this.form.password)
+        .createUserWithEmailAndPassword(this.form.email, this.form.password)
         .then(data => {
-          this.$router.replace({ name: "Sākums" });
+          data.user
+            .updateProfile({
+              displayName: this.form.name
+            })
+            .then(() => {});
         })
         .catch(err => {
           this.error = err.message;
         });
     }
   }
-};
+}
 </script>
