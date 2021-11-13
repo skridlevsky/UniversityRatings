@@ -33,7 +33,7 @@
         <ul class="flex items-center hidden space-x-8 lg:flex">
           <li>
             <a
-              href="/"
+              href="/universities"
               aria-label="Our product"
               title="Our product"
               class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -54,7 +54,7 @@
       <ul class="flex items-center hidden space-x-8 lg:flex">
         <li>
           <a
-            href="/"
+            href="/login"
             aria-label="Sign in"
             title="Sign in"
             class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -145,7 +145,7 @@
               <ul class="space-y-4">
                 <li>
                   <a
-                    href="/"
+                    href="/universities"
                     aria-label="Our product"
                     title="Our product"
                     class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"

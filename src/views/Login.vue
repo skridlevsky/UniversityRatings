@@ -1,90 +1,64 @@
 <template>
-  <div id="login">
-    <PasswordReset v-if="showPasswordReset" @close="togglePasswordReset()"></PasswordReset>
-    <section>
-      <div class="col1">
-        <h1>Vuegram</h1>
-        <p>Welcome to the <a href="https://savvyapps.com/" target="_blank">Savvy Apps</a> sample social media web app powered by Vue.js and Firebase.
-          Build this project by checking out The Definitive Guide to Getting Started with Vue.js</p>
+<Navigation></Navigation>
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Sign in to your account
+        </h2>
       </div>
-      <div :class="{ 'signup-form': !showLoginForm }" class="col2">
-        <form v-if="showLoginForm" @submit.prevent>
-          <h1>Welcome Back</h1>
+      <form class="mt-8 space-y-6" action="#" method="POST">
+        <input type="hidden" name="remember" value="true" />
+        <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <label for="email1">Email</label>
-            <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1" />
-          </div>
-          <div>
-            <label for="password1">Password</label>
-            <input v-model.trim="loginForm.password" type="password" placeholder="******" id="password1" />
-          </div>
-          <button @click="login()" class="button">Log In</button>
-          <div class="extras">
-            <a @click="togglePasswordReset()">Forgot Password</a>
-            <a @click="toggleForm()">Create an Account</a>
-          </div>
-        </form>
-        <form v-else @submit.prevent>
-          <h1>Get Started</h1>
-          <div>
-            <label for="email2">Email</label>
-            <input v-model.trim="signupForm.email" type="text" placeholder="you@email.com" id="email2" />
+            <label for="email-address" class="sr-only">Email address</label>
+            <input id="email-address" name="email" type="email" autocomplete="email" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
           </div>
           <div>
-            <label for="password2">Password</label>
-            <input v-model.trim="signupForm.password" type="password" placeholder="min 6 characters" id="password2" />
+            <label for="password" class="sr-only">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" />
           </div>
-          <button @click="signup()" class="button">Sign Up</button>
-          <div class="extras">
-            <a @click="toggleForm()">Back to Log In</a>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
+              Remember me
+            </label>
           </div>
-        </form>
-      </div>
-    </section>
+
+          <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+              Forgot your password?
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+              <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+            </span>
+            Sign in
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+  <Footer></Footer>
 </template>
 
 <script>
-import PasswordReset from '@/components/PasswordReset'
+import { LockClosedIcon } from '@heroicons/vue/solid'
+import Navigation from '../components/Navigation.vue'
+import Footer from '../components/Footer.vue'
+
 export default {
   components: {
-    PasswordReset
+    LockClosedIcon,
+    Navigation,
+    Footer
   },
-  data() {
-    return {
-      loginForm: {
-        email: '',
-        password: ''
-      },
-      signupForm: {
-        name: '',
-        title: '',
-        email: '',
-        password: ''
-      },
-      showLoginForm: true,
-      showPasswordReset: false
-    }
-  },
-  methods: {
-    toggleForm() {
-      this.showLoginForm = !this.showLoginForm
-    },
-    togglePasswordReset() {
-      this.showPasswordReset = !this.showPasswordReset
-    },
-    login() {
-      this.$store.dispatch('login', {
-        email: this.loginForm.email,
-        password: this.loginForm.password
-      })
-    },
-    signup() {
-      this.$store.dispatch('signup', {
-        email: this.signupForm.email,
-        password: this.signupForm.password,
-      })
-    }
-  }
 }
 </script>
