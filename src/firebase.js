@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import store from './store'
 
 // firebase init - add your own config here
 const firebaseConfig = {
@@ -15,6 +16,10 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig)
+
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
 
 // utils
 const db = firebase.firestore()

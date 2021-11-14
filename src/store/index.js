@@ -1,46 +1,36 @@
 import { createStore } from 'vuex'
-import * as firebase from '../firebase'
-import router from '../router/index'
 
 const store = createStore({
   state: {
-    userProfile: {}
+    user: {
+      loggedIn: false,
+      data: null
+    }
+  },
+  getters: {
+    user(state){
+      return state.user
+    }
   },
   mutations: {
-    setUserProfile(state, val) {
-      state.userProfile = val
+    SET_LOGGED_IN(state, value) {
+      state.user.loggedIn = value;
+    },
+    SET_USER(state, data) {
+      state.user.data = data;
     }
   },
   actions: {
-    async login({ dispatch }, form) {
-      // sign user in
-      const { user } = await firebase.auth.signInWithEmailAndPassword(form.email, form.password)
-  
-      // fetch user profile and set in state
-      dispatch('fetchUserProfile', user)
-    },
-    async fetchUserProfile({ commit }, user) {
-      // fetch user profile
-      const userProfile = await firebase.usersCollection.doc(user.uid).get()
-  
-      // set user profile in state
-      commit('setUserProfile', userProfile.data())
-      
-      // change route to dashboard
-      router.push('/')
-    },
-    async signup({ dispatch }, form) {
-      // sign user up
-      const { user } = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
-    
-      // create user profile object in userCollections
-      await firebase.usersCollection.doc(user.uid).set({
-        email: form.email,
-        title: form.password
-      })
-    
-      // fetch user profile and set in state
-      dispatch('fetchUserProfile', user)
+    fetchUser({ commit }, user) {
+      commit("SET_LOGGED_IN", user !== null);
+      if (user) {
+        commit("SET_USER", {
+          displayName: user.displayName,
+          email: user.email
+        });
+      } else {
+        commit("SET_USER", null);
+      }
     }
   }
 })

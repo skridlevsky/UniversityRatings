@@ -1,5 +1,4 @@
 <template>
-<Navigation></Navigation>
   <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
@@ -49,20 +48,15 @@
       </form>
     </div>
   </div>
-  <Footer></Footer>
 </template>
 
 <script>
 import { LockClosedIcon } from '@heroicons/vue/solid'
-import Navigation from '../components/Navigation.vue'
-import Footer from '../components/Footer.vue'
 import firebase from "firebase";
 
 export default {
   components: {
-    LockClosedIcon,
-    Navigation,
-    Footer
+    LockClosedIcon
   },
   data() {
     return {
@@ -79,7 +73,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(data => {
-          this.$router.replace({ name: "Sākums" });
+          this.$router.push({ name: "Sākums" });
         })
         .catch(err => {
           this.error = err.message;
