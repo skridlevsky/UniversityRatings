@@ -11,7 +11,7 @@
           class="inline-flex items-center mr-8"
         >
           <svg
-            class="w-8 text-deep-purple-accent-400"
+            class="w-8 text-indigo-600"
             viewBox="0 0 24 24"
             stroke-linejoin="round"
             stroke-width="2"
@@ -36,7 +36,7 @@
               href="/universities"
               aria-label="Our product"
               title="Our product"
-              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
               >Universitātes</a
             >
           </li>
@@ -45,32 +45,55 @@
               href="/"
               aria-label="Our product"
               title="Our product"
-              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
               >Pasniedzēji</a
             >
           </li>
         </ul>
       </div>
       <ul class="flex items-center hidden space-x-8 lg:flex">
+        <template v-if="user.loggedIn">
+        <li>
+          <a
+            aria-label="{{user.data.displayName}}"
+            title="{{user.data.displayName}}"
+            class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+            >{{user.data.displayName}}</a
+          >
+        </li>
+        <li>
+          <a
+          href="#"
+            @click.prevent="signOut"
+            class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+            aria-label="Iziet"
+            title="Iziet"
+          >
+            Iziet
+          </a>
+        </li>
+        </template>
+        <template v-else>
         <li>
           <a
             href="/login"
             aria-label="Autorizēties"
             title="Autorizēties"
-            class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
             >Autorizēties</a
           >
         </li>
         <li>
           <a
             href="/register"
-            class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+            class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-indigo-600 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             aria-label="Reģistrēties"
             title="Reģistrēties"
           >
             Reģistrēties
           </a>
         </li>
+        </template>
       </ul>
       <div class="lg:hidden">
         <button
@@ -105,7 +128,7 @@
                   class="inline-flex items-center"
                 >
                   <svg
-                    class="w-8 text-deep-purple-accent-400"
+                    class="w-8 text-indigo-600"
                     viewBox="0 0 24 24"
                     stroke-linejoin="round"
                     stroke-width="2"
@@ -121,7 +144,7 @@
                   </svg>
                   <span
                     class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase"
-                    >Company</span
+                    >Universitātes.lv</span
                   >
                 </a>
               </div>
@@ -148,7 +171,7 @@
                     href="/universities"
                     aria-label="Our product"
                     title="Our product"
-                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
                     >Universitātes</a
                   >
                 </li>
@@ -157,25 +180,25 @@
                     href="/"
                     aria-label="Our product"
                     title="Our product"
-                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
                     >Pasniedzēji</a
                   >
                 </li>
                 <li>
                   <a
-                    href="/"
-                    aria-label="Sign in"
-                    title="Sign in"
-                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                    >Ieiet</a
+                    href="/login"
+                    aria-label="Autorizēties"
+                    title="Autorizēties"
+                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
+                    >Autorizēties</a
                   >
                 </li>
                 <li>
                   <a
-                    href="/"
-                    class="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                    aria-label="Sign up"
-                    title="Sign up"
+                    href="/signup"
+                    class="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-indigo-600 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                    aria-label="Reģistrēties"
+                    title="Reģistrēties"
                   >
                     Reģistrēties
                   </a>
@@ -188,3 +211,33 @@
     </div>
   </div>
   </template>
+
+<script>
+import { mapGetters } from "vuex"
+import firebase from "firebase"
+
+export default {
+  computed: {
+    ...mapGetters({
+      user: "user" // map this.user to this.$store.getters.user
+    })
+  },
+  methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "home"
+          });
+        });
+    }
+  },
+    data() {
+    return {
+      isMenuOpen: false,
+    };
+  }
+};
+</script>
