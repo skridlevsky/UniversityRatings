@@ -1,53 +1,34 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Autorizācija
-        </h2>
-      </div>
+<section class="relative pt-36 pb-36 bg-gray-50">
+  <img class="hidden lg:block absolute top-0 left-0 mt-16" src="zeus-assets/icons/dots/blue-dot-left-bars.svg" alt="">
+  <img class="hidden lg:block absolute bottom-0 right-0 mb-20" src="zeus-assets/icons/dots/yellow-dot-right-shield.svg" alt="">
+  
+  <div class="container px-4 mx-auto">
+    <div class="max-w-sm mx-auto rounded-lg text-center">
+      <h3 class="mb-12 text-3xl font-semibold font-heading">Autorizēties</h3>
 
-      <div v-if="error" class="alert alert-danger">{{error}}</div>
-
-      <form class="mt-8 space-y-6" action="#" @submit.prevent="submit">
-        <input type="hidden" name="remember" value="true" />
-        <div class="rounded-md shadow-sm -space-y-px">
-          <div>
-            <label for="email-address" class="sr-only">E-pasts</label>
-            <input id="email-address" name="email" type="email" autocomplete="email" value required autofocus v-model="form.email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="E-pasta adrese" />
-          </div>
-          <div>
-            <label for="password" class="sr-only">Parole</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required v-model="form.password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Parole" />
-          </div>
+      <form action="#" @submit.prevent="submit">
+        <div class="relative flex flex-wrap mb-6">
+          <input class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border-2 rounded" type="email" value required autofocus v-model="form.email" placeholder="janis.berzins@gmail.com">
+          <span class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-600 text-sm">Epasta adrese</span>
+        </div>
+        
+        <div class="relative flex flex-wrap mb-6">
+          <input class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border-2 rounded" type="password" required v-model="form.password" placeholder="********">
+          <span class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-600 text-sm">Parole</span>
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-              Atcerēties mani
-            </label>
-          </div>
-
-          <div class="text-sm">
-            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-              Aizmirsi paroli?
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
-            </span>
-            Ienākt
-          </button>
-        </div>
+        <button type="submit" class="w-full inline-block py-4 mb-4 text-sm text-white font-medium leading-normal rounded transition duration-200 bg-indigo-600 hover:bg-indigo-700">Ieiet</button>
       </form>
+
+      <p class="text-sm text-gray-500">
+        <span>Neesi reģistrēts? </span>
+        <a class="font-semibold hover:underline text-indigo-600" href="#">Reģistrēties</a>
+      </p>
+
     </div>
   </div>
+</section>
 </template>
 
 <script>
@@ -69,6 +50,7 @@ export default {
   },
   methods: {
     submit() {
+      console.log("submitted");
       firebase
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
