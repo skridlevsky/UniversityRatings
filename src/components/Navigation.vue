@@ -30,12 +30,12 @@
             >Universitātes.lv</span
           >
         </a>
-        <ul class="flex items-center hidden space-x-8 lg:flex">
+        <ul class="items-center hidden space-x-8 lg:flex">
           <li>
             <a
               href="/universities"
-              aria-label="Our product"
-              title="Our product"
+              aria-label="Universitātes"
+              title="Universitātest"
               class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
               >Universitātes</a
             >
@@ -43,15 +43,15 @@
           <li>
             <a
               href="/"
-              aria-label="Our product"
-              title="Our product"
+              aria-label="Pasniedzēji"
+              title="Pasniedzēji"
               class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-600"
               >Pasniedzēji</a
             >
           </li>
         </ul>
       </div>
-      <ul class="flex items-center hidden space-x-8 lg:flex">
+      <ul class="items-center hidden space-x-8 lg:flex">
         <template v-if="user.loggedIn">
         <li>
           <a
